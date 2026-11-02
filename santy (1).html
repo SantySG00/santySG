@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#050506" />
+  <meta name="description" content="Musica e nuovo album di SANTY." />
+  <meta property="og:title" content="SANTY" />
+  <meta property="og:description" content="Nuovo album fuori ora." />
+  <meta property="og:image" content="FOTO/cover.jpg" />
+  <title>SANTY</title>
+  <style>
+    :root {
+      --bg: #050506;
+      --panel: rgba(11, 12, 14, 0.9);
+      --panel-soft: rgba(16, 17, 19, 0.86);
+      --ink: #f4f1ea;
+      --muted: #a5a19a;
+      --line: rgba(255,255,255,0.12);
+      --gold: #f6edd8;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: rgba(5,5,6,0.52);
+    }
+    .backdrop::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("FOTO/cover.jpg") center 35% / cover no-repeat;
+      transform: scale(1.08);
+      filter: saturate(0.8) brightness(0.75);
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+    .backdrop::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5,5,6,0.25), rgba(5,5,6,0.85) 72%, rgba(5,5,6,1));
+    }
+    @keyframes drift {
+      from { transform: scale(1.06) translateY(0); }
+      to { transform: scale(1.14) translateY(-10px); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(440px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 18px 0 8px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 8px;
+    }
+
+    .shop-mark, .menu-btn {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .shop-mark svg { width: 20px; height: 20px; }
+    .menu-btn span,
+    .menu-btn span::before,
+    .menu-btn span::after {
+      display: block;
+      width: 18px;
+      height: 1.8px;
+      background: currentColor;
+      border-radius: 2px;
+      position: relative;
+      content: "";
+    }
+    .menu-btn span::before { position: absolute; left: 0; top: -6px; content: ""; }
+    .menu-btn span::after { position: absolute; left: 0; top: 6px; content: ""; }
+
+    .drawer {
+      position: absolute;
+      top: 62px;
+      right: 0;
+      width: min(220px, 100%);
+      display: none;
+      z-index: 5;
+    }
+    .drawer.open { display: block; }
+    .drawer nav {
+      border: 1px solid var(--line);
+      background: rgba(12,12,14,0.96);
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+    }
+    .drawer a {
+      display: block;
+      padding: 10px 4px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+    .made-by {
+      margin: 6px 0 0;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+      text-align: right;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .made-by a { display: inline; padding: 0; font-weight: 800; }
+
+    .hero {
+      min-height: 150px;
+    }
+
+    .links {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--ink);
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+    }
+    .link-card svg {
+      width: 20px;
+      height: 20px;
+      flex: none;
+    }
+    .link-card span {
+      flex: 1;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+    .link-card .arrow {
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .video-card {
+      margin-top: 18px;
+      background: rgba(15,15,18,0.82);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 48px rgba(0,0,0,0.26);
+    }
+    .video-head {
+      padding: 12px 18px 10px;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #d6d1c8;
+    }
+    .video-card video {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #09090a;
+    }
+
+    .music-card {
+      margin-top: 18px;
+      background: linear-gradient(180deg, rgba(16,17,19,0.86), rgba(8,9,10,0.9));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      backdrop-filter: blur(18px);
+    }
+    .card-heading {
+      padding: 18px 18px 8px;
+    }
+    .release-kicker {
+      margin: 0;
+      font-size: 0.63rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #d7d2ca;
+      text-transform: uppercase;
+    }
+    .release-title {
+      margin: 4px 0 0;
+      color: #f7f4ee;
+      font-family: "Permanent Marker", "Comic Sans MS", cursive;
+      font-size: 1.85rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+      line-height: .9;
+      text-shadow: 2px 3px 0 rgba(0, 0, 0, .55);
+      transform: rotate(-4deg);
+    }
+
+    .now-playing {
+      display: grid;
+      grid-template-columns: 64px 1fr 46px;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 18px 8px;
+    }
+    .cover {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      background: url("FOTO/cover.jpg") center/cover no-repeat;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.4);
+    }
+    .track-title {
+      margin: 0 0 3px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-artist {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+    .play-button {
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 50%;
+      background: #f4f0ea;
+      color: #111;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+    .play-button svg { width: 16px; height: 16px; }
+
+    .progress-wrap { padding: 0 18px 8px; }
+    .progress {
+      width: 100%;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: linear-gradient(90deg, #f4efe9 var(--played, 0%), rgba(255,255,255,0.18) var(--played, 0%));
+      border-radius: 99px;
+    }
+    .progress::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #f4efe9;
+      border: 0;
+    }
+    .progress::-moz-range-thumb {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #f4efe9;
+      border: 0;
+    }
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      color: #8d8a84;
+      margin-top: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .track-list {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 8px 10px;
+    }
+    .track {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: center;
+      gap: 8px;
+      padding: 0 10px;
+      min-height: 42px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+    .track[aria-current="true"], .track:hover { background: rgba(255,255,255,0.05); }
+    .track-number,
+    .track-length { color: #8d8a84; font-size: 0.72rem; }
+    .track-name { font-size: 0.84rem; }
+
+    .player-message {
+      min-height: 18px;
+      margin: 0;
+      padding: 0 18px 12px;
+      color: #ffd2a6;
+      font-size: 0.74rem;
+    }
+
+    .promo-banner {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(440px, calc(100vw - 28px));
+      padding: 18px 18px 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(11,12,14,0.92);
+      box-shadow: 0 24px 52px rgba(0,0,0,0.5);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .promo-banner.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .promo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .promo-kicker {
+      margin: 0;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d9d2c6;
+      font-weight: 800;
+    }
+    .promo-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .promo-banner p {
+      margin: 0 0 12px;
+      text-align: center;
+      line-height: 1.5;
+      font-size: 0.96rem;
+    }
+    .promo-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .promo-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--ink);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    audio { display: none; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      width: min(440px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 10px 0 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: rgba(255,255,255,0.54);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="topbar" style="position: relative;">
+      <a class="shop-mark" href="SHOP/santy.html" aria-label="Vai allo shop">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 8V6a6 6 0 0 1 12 0v2h3l-1.2 14H4.2L3 8h3zm2 0h8V6a4 4 0 0 0-8 0v2zm-2.8 2 .86 10h11.88l.86-10H6z"/></svg>
+      </a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="Apri menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+      </button>
+      <div class="drawer" id="menu" aria-hidden="true">
+        <nav aria-label="Menu">
+          <a href="#track-list">Ascolta i brani</a>
+          <a href="SHOP/santy.html">Shop</a>
+          <a href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">Spotify</a>
+          <a href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://www.tiktok.com/@santyy_sg" target="_blank" rel="noopener noreferrer">TikTok</a>
+          <p class="made-by">MADE BY <a href="https://www.instagram.com/tobia.tpg" target="_blank" rel="noopener noreferrer">TBAPZN</a></p>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" aria-label="Hero"></section>
+
+    <nav class="links" aria-label="Link ufficiali">
+      <a class="link-card" href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="12" fill="#1DB954"/>
+          <path d="M17.43 15.84c-.2.33-.64.43-.97.23-2.66-1.63-6.02-2-10.03-1.09-.38.09-.76-.15-.85-.53-.09-.38.15-.76.53-.85 4.54-1.08 8.48-.63 11.58 1.13.33.2.43.64.24.97zm1.37-3.11c-.25.41-.78.54-1.19.29-3.06-1.88-7.73-2.42-11.35-1.33-.46.14-.96-.12-1.1-.58-.14-.46.12-.96.58-1.1 4.26-1.28 9.7-.7 13.4 1.61.41.25.54.78.29 1.19zm.12-3.21c-3.67-2.18-9.73-2.38-13.22-1.31-.55.17-1.13-.14-1.3-.7-.17-.55.14-1.13.7-1.3 3.99-1.2 10.64-.99 14.82 1.55.5.29.67.93.38 1.43-.29.5-.93.67-1.43.38z" fill="#000" fill-opacity=".95"/>
+        </svg>
+        <span>Ascolta su Spotify</span>
+        <span class="arrow" aria-hidden="true"></span>
+      </a>
+
+      <a class="link-card" href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.6 15.8V8.2l7.1 3.8-7.1 3.8z"/></svg>
+        <span>Guarda su YouTube</span>
+        <span class="arrow" aria-hidden="true"></span>
+      </a>
+
+      <a class="link-card" href="https://www.tiktok.com/@santyy_sg" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="0.7" y="0.7" width="22.6" height="22.6" rx="5.2" fill="#000"/>
+          <path d="M15.6 3.5c.25 1.85 1.46 3.19 3.18 3.44v2.31c-1.06 0-2.08-.26-3.03-.82v6.65c0 3.37-2.73 6.1-6.1 6.1A6.09 6.09 0 0 1 3.5 14.7c0-3.37 2.73-6.1 6.1-6.1.44 0 .88.05 1.29.15V9.9c-.43-.08-.86-.11-1.29-.11A4.85 4.85 0 0 0 5.6 14.7a4.85 4.85 0 0 0 4.84 4.84 4.85 4.85 0 0 0 4.85-4.84V3.5h.32zm-.65 4.27v-.8c0 .29 0 .56-.02.8h.02z" fill="#fff"/>
+          <path d="M15.16 7.72c.36-.76 1.12-1.31 1.97-1.46v2.31c-.31 0-.6.05-.87.14-.43.15-.8.42-1.1.75V7.72z" fill="#fff"/>
+        </svg>
+        <span>Scopri su TikTok</span>
+        <span class="arrow" aria-hidden="true"></span>
+      </a>
+    </nav>
+
+    <section class="video-card" aria-label="Video ufficiale">
+      <div class="video-head">Video</div>
+      <video id="promo-video" autoplay muted loop playsinline preload="metadata" poster="FOTO/cover.jpg">
+        <source src="FOTO/santySG-Di-SnapYT.App.webm" type="video/webm" />
+        <source src="FOTO/SANTY_BG.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <section class="music-card" aria-label="Player musicale">
+      <div class="card-heading">
+        <p class="release-kicker">Nuovo album</p>
+        <p class="release-title">Fuori ora</p>
+      </div>
+
+      <div class="now-playing">
+        <div class="cover" aria-label="Copertina SANTY" role="img"></div>
+        <div>
+          <p class="track-title" id="track-title">DI PIÚ</p>
+          <p class="track-artist">SANTY</p>
+        </div>
+        <button class="play-button" id="play-button" type="button" aria-label="Riproduci">
+          <svg id="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5L8 5.5z"/></svg>
+        </button>
+      </div>
+
+      <div class="progress-wrap">
+        <input class="progress" id="progress" type="range" min="0" max="100" value="0" aria-label="Posizione del brano" />
+        <div class="time-row"><span id="current-time">0:00</span><span id="duration">0:00</span></div>
+      </div>
+
+      <div class="track-list" id="track-list" aria-label="Brani">
+        <button class="track" type="button" data-index="0"><span class="track-number">01</span><span class="track-name">SG</span><span class="track-length">—:—</span></button>
+        <button class="track" type="button" data-index="1"><span class="track-number">02</span><span class="track-name">SPOTLIGHT</span><span class="track-length">—:—</span></button>
+        <button class="track" type="button" data-index="2"><span class="track-number">03</span><span class="track-name">DI NUOVO</span><span class="track-length">—:—</span></button>
+        <button class="track" type="button" data-index="3"><span class="track-number">04</span><span class="track-name">APACHE</span><span class="track-length">—:—</span></button>
+        <button class="track" type="button" data-index="4" aria-current="true"><span class="track-number">05</span><span class="track-name">DI PIÚ</span><span class="track-length">—:—</span></button>
+        <button class="track" type="button" data-index="5"><span class="track-number">06</span><span class="track-name">A LA VIE A LA MORT</span><span class="track-length">—:—</span></button>
+        <button class="track" type="button" data-index="6"><span class="track-number">07</span><span class="track-name">QUI MORIREMO</span><span class="track-length">—:—</span></button>
+        <button class="track" type="button" data-index="7"><span class="track-number">08</span><span class="track-name">ALLA FINE</span><span class="track-length">—:—</span></button>
+      </div>
+
+      <p class="player-message" id="player-message" aria-live="polite"></p>
+      <audio id="audio" preload="auto" autoplay muted></audio>
+    </section>
+  </div>
+
+  <footer>
+    <span>© <span id="year"></span> SANTY</span>
+    <span>VERSANE DI PIÚ</span>
+  </footer>
+
+  <div id="listen-banner" class="promo-banner" role="dialog" aria-live="polite" aria-label="Scelta ascolto">
+    <div class="promo-header">
+      <p class="promo-kicker">MUSICA</p>
+      <button class="promo-close" type="button" aria-label="Chiudi banner">✕</button>
+    </div>
+    <p>Hai superato i 15 secondi: vuoi continuare su Spotify o YouTube?</p>
+    <div class="promo-actions">
+      <a href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <a href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tracks = [
+        { title: 'SG', src: 'CANZONI/EP%20SG/SG%20(INTRO)%20-%20santySG.mp3' },
+        { title: 'SPOTLIGHT', src: 'CANZONI/EP%20SG/SPOTLIGHT%20-%20santySG.mp3' },
+        { title: 'DI NUOVO', src: 'CANZONI/EP%20SG/DI%20NUOVO%20-%20santySG.mp3' },
+        { title: 'APACHE', src: 'CANZONI/EP%20SG/APACHE%20-%20santySG.mp3' },
+        { title: 'DI PIÚ', src: 'CANZONI/EP%20SG/DI%20PI%C3%9A%20-%20santySG.mp3' },
+        { title: 'A LA VIE A LA MORT', src: 'CANZONI/EP%20SG/%C3%81%20LA%20VIE%20%C3%81%20LA%20MORT%20-%20santySG.mp3' },
+        { title: 'QUI MORIREMO', src: 'CANZONI/EP%20SG/QUI%20MORIREMO%20-%20santySG.mp3' },
+        { title: 'ALLA FINE', src: 'CANZONI/EP%20SG/ALLA%20FINE%20-%20santySG.mp3' }
+      ];
+
+      const audio = document.getElementById('audio');
+      const video = document.getElementById('promo-video');
+      const playButton = document.getElementById('play-button');
+      const playIcon = document.getElementById('play-icon');
+      const title = document.getElementById('track-title');
+      const progress = document.getElementById('progress');
+      const currentTime = document.getElementById('current-time');
+      const duration = document.getElementById('duration');
+      const message = document.getElementById('player-message');
+      const trackButtons = [...document.querySelectorAll('.track')];
+      const promoBanner = document.getElementById('listen-banner');
+      const promoClose = document.querySelector('.promo-close');
+      const menuBtn = document.getElementById('menu-btn');
+      const menu = document.getElementById('menu');
+
+      const playPath = 'M8 5.5v13l11-6.5L8 5.5z';
+      const pausePath = 'M7 6h3.2v12H7zm6.8 0H17v12h-3.2z';
+      const AUTO_BANNER_DELAY = 15000;
+      let activeTrack = 4;
+      let bannerShown = false;
+
+      function formatTime(sec) {
+        if (!Number.isFinite(sec)) return '0:00';
+        const mins = Math.floor(sec / 60);
+        const secs = Math.floor(sec % 60);
+        return `${mins}:${String(secs).padStart(2, '0')}`;
+      }
+
+      function setProgress(value) {
+        progress.style.setProperty('--played', `${value}%`);
+        progress.value = value;
+      }
+
+      function loadTrack(index) {
+        activeTrack = index;
+        audio.src = tracks[index].src;
+        audio.load();
+        title.textContent = tracks[index].title;
+        currentTime.textContent = '0:00';
+        duration.textContent = '0:00';
+        setProgress(0);
+        message.textContent = '';
+        trackButtons.forEach((btn, i) => {
+          btn.setAttribute('aria-current', i === index ? 'true' : 'false');
+        });
+      }
+
+      function playTrack() {
+        audio.muted = true;
+        audio.play().then(() => {
+          audio.muted = false;
+        }).catch(() => {
+          message.textContent = 'Autoplay bloccato dal browser. Clicca il pulsante play per attivare l’audio.';
+        });
+      }
+
+      function showBanner() {
+        if (bannerShown) return;
+        bannerShown = true;
+        if (!audio.paused) audio.pause();
+        promoBanner.classList.add('visible');
+      }
+
+      function hideBanner() {
+        promoBanner.classList.remove('visible');
+      }
+
+      playButton.addEventListener('click', () => {
+        audio.muted = false;
+        if (audio.paused) {
+          audio.play().catch(() => {
+            message.textContent = 'Impossibile avviare il brano.';
+          });
+        } else {
+          audio.pause();
+        }
+      });
+
+      trackButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const index = Number(button.dataset.index);
+          bannerShown = false;
+          hideBanner();
+          loadTrack(index);
+          audio.muted = true;
+          audio.play().then(() => {
+            audio.muted = false;
+          }).catch(() => {
+            message.textContent = 'Clicca il tasto play per attivare la musica.';
+          });
+        });
+      });
+
+      promoClose.addEventListener('click', hideBanner);
+
+      audio.addEventListener('play', () => {
+        playIcon.innerHTML = `<path fill="currentColor" d="M7 6h3.2v12H7zm6.8 0H17v12h-3.2z"/>`;
+      });
+      audio.addEventListener('pause', () => {
+        playIcon.innerHTML = `<path fill="currentColor" d="M8 5.5v13l11-6.5L8 5.5z"/>`;
+      });
+      audio.addEventListener('loadedmetadata', () => {
+        duration.textContent = formatTime(audio.duration);
+        const len = trackButtons[activeTrack].querySelector('.track-length');
+        if (len) len.textContent = formatTime(audio.duration);
+      });
+      audio.addEventListener('timeupdate', () => {
+        currentTime.textContent = formatTime(audio.currentTime);
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+          const pct = (audio.currentTime / audio.duration) * 100;
+          setProgress(pct);
+        }
+        if (audio.currentTime >= 15 && !bannerShown) {
+          showBanner();
+        }
+      });
+      audio.addEventListener('ended', () => {
+        const next = (activeTrack + 1) % tracks.length;
+        loadTrack(next);
+        playTrack();
+      });
+      audio.addEventListener('error', () => {
+        message.textContent = 'File audio non disponibile. Controlla la cartella CANZONI.';
+      });
+
+      progress.addEventListener('input', () => {
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+          audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+        }
+      });
+
+      video.addEventListener('loadeddata', () => {
+        video.play().catch(() => {});
+      });
+
+      menuBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isOpen = menu.classList.toggle('open');
+        menu.setAttribute('aria-hidden', String(!isOpen));
+      });
+      document.addEventListener('click', (event) => {
+        if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+          menu.classList.remove('open');
+          menu.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      tracks.forEach((track, index) => {
+        const probe = new Audio();
+        probe.preload = 'metadata';
+        probe.src = track.src;
+        probe.addEventListener('loadedmetadata', () => {
+          const slot = trackButtons[index].querySelector('.track-length');
+          if (slot) slot.textContent = formatTime(probe.duration);
+        });
+      });
+
+      loadTrack(4);
+      playTrack();
+      setTimeout(() => {
+        if (!bannerShown) showBanner();
+      }, AUTO_BANNER_DELAY);
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
