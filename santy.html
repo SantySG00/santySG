@@ -7,7 +7,7 @@
   <meta name="description" content="Merch ufficiale di SANTY.">
   <meta property="og:title" content="SANTY | Shop">
   <meta property="og:description" content="Scopri il merch ufficiale di SANTY.">
-  <meta property="og:image" content="../FOTO/cover.jpg">
+  <meta property="og:image" content="cover.jpg">
   <title>SANTY | Shop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
       z-index: -1;
       inset: 0;
       overflow: hidden;
-      background: #08080a url("../FOTO/cover.jpg") center 12% / cover no-repeat;
+      background: #08080a url("cover.jpg") center 12% / cover no-repeat;
     }
 
     .backdrop::before,
@@ -56,7 +56,7 @@
     .backdrop::after {
       background:
         linear-gradient(90deg, rgba(5, 5, 6, .38), transparent 22%, transparent 78%, rgba(5, 5, 6, .38)),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.12'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
       opacity: .18;
       mix-blend-mode: overlay;
     }
@@ -225,7 +225,7 @@
       width: 64px;
       height: 64px;
       border-radius: 8px;
-      background: #1a1a1c url("../FOTO/cover.jpg") center / cover;
+      background: #1a1a1c url("cover.jpg") center / cover;
       box-shadow: 0 8px 20px rgba(0, 0, 0, .45);
     }
 
@@ -390,8 +390,6 @@
       .backdrop { background-position: center 8%; }
     }
 
-
-    /* ===== SHOP ===== */
     .shop {
       position: relative;
       isolation: isolate;
@@ -433,7 +431,7 @@
       pointer-events: none;
       background:
         repeating-linear-gradient(0deg, rgba(0, 0, 0, .16) 0 1px, transparent 1px 3px),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.12'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
       opacity: .5;
       animation: shop-grain 1.2s steps(4) infinite;
@@ -462,7 +460,7 @@
       position: absolute;
       inset: 0;
       content: "";
-      background: conic-gradient(from 180deg at 50% 38%, transparent 0 40deg, rgba(255, 255, 255, .10) 55deg, transparent 70deg 110deg, rgba(255, 255, 255, .08) 125deg, transparent 140deg 220deg, rgba(255, 255, 255, .08) 235deg, transparent 250deg 290deg, rgba(255, 255, 255, .10) 305deg, transparent 320deg);
+      background: conic-gradient(from 180deg at 50% 38%, transparent 0 40deg, rgba(255, 255, 255, .10) 55deg, transparent 70deg 110deg, rgba(255, 255, 255, .08) 125deg, transparent 140deg 220deg, rgba(255, 255, 255, .14) 240deg, transparent 270deg, rgba(255, 255, 255, .04) 290deg, transparent 360deg);
       -webkit-mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
       mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
       animation: shop-rays 14s ease-in-out infinite alternate;
@@ -548,7 +546,7 @@
 
     @keyframes shop-drift { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.1) translate(-2%, 1.5%); } }
     @keyframes shop-rays { from { transform: rotate(-3deg) scale(1); opacity: .7; } to { transform: rotate(3deg) scale(1.06); opacity: 1; } }
-    @keyframes shop-grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } 100% { transform: translate(3%, 3%); } }
+    @keyframes shop-grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } 100% { transform: translate(1%, 2%); } }
     @keyframes shirt-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(.6deg); } }
 
     @media (max-width: 380px) {
@@ -578,7 +576,7 @@
     </button>
     <div class="drawer" id="menu" hidden>
       <nav aria-label="Menu">
-        <a href="../santy.html">Musica</a>
+        <a href="index.html">Musica</a>
       </nav>
     </div>
   </header>
@@ -590,17 +588,17 @@
 
     <nav class="links" aria-label="Link ufficiali">
       <a class="link-card" href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 1.6C6.26 1.6 1.6 6.26 1.6 12S6.26 22.4 12 22.4 22.4 17.74 22.4 12 17.74 1.6 12 1.6zm4.64 14.98a.64.64 0 0 1-.88.21c-2.4-1.47-5.43-1.8-9-.99a.64.64 0 1 1-.29-1.25c3.9-.88 7.2-.5 9.86 1.14a.64.64 0 0 1 .31.89zm1.24-2.76a.8.8 0 0 1-1.1.26c-2.75-1.7-6.94-2.19-10.2-1.2a.8.8 0 1 1-.46-1.53c3.73-1.13 8.32-.58 11.48 1.37a.8.8 0 0 1 .28 1.1zm.1-2.88c-3.3-1.96-8.74-2.14-11.88-1.18a.96.96 0 1 1-.56-1.84c3.62-1.1 9.63-.89 13.42 1.36a.96.96 0 1 1-.98 1.66z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 1.6C6.26 1.6 1.6 6.26 1.6 12S6.26 22.4 12 22.4 22.4 17.74 22.4 12 17.74 1.6 12 1.6zm4.64 14.98a.64.64 0 0 1-.88.21c-2.38-1.46-5.38-1.79-8.93-1.02-.34.08-.7-.13-.78-.47-.09-.35.13-.7.48-.78 4-.87 7.49-.5 10.35 1.19.31.19.41.59.26.87zm1.02-2.85a.8.8 0 0 1-1.1.27c-2.73-1.68-6.9-2.17-10.15-1.18-.42.13-.86-.14-.99-.56-.12-.42.14-.86.56-.99 3.77-1.15 8.44-.61 11.74 1.39.38.24.51.76.24 1.07zm.9-2.93c-3.25-1.94-8.6-2.12-11.67-1.15-.48.15-.99-.16-1.14-.64-.15-.48.16-.99.64-1.14 3.73-1.17 9.42-.93 13.09 1.33.42.25.56.8.31 1.21-.25.42-.8.56-1.22.39z"/></svg>
         <span>Ascolta su Spotify</span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
       <a class="link-card" href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.6 15.5V8.5l6.4 3.5-6.4 3.5z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1 31.5 31.5 0 0 0 .5-5.8 31.5 31.5 0 0 0-.5-5.8zM9.8 15.4V8.6l6.5 3.4-6.5 3.4z"/></svg>
         <span>Guarda su YouTube</span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
       <a class="link-card" href="https://www.tiktok.com/@santyy_sg" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M14.5 3c.4 2.6 1.8 4.4 4.4 4.7v2.5c-1.5 0-2.9-.5-4.2-1.4v6.6c0 3.4-2.6 6-5.9 6.1A5.9 5.9 0 0 1 8.6 9.7v2.6a3.3 3.3 0 1 0 2.3 3.1V3h3.6z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M14.5 3c.4 2.6 1.8 4.4 4.4 4.7v2.5c-1.5 0-2.9-.5-4.2-1.4v6.6c0 3.4-2.6 6-5.9 6.1A5.9 5.9 0 0 1 8.6 9.7v2.6a3.3 3.3 0 1 0 2.3 6.1V9.8c.8-.2 1.8-.4 2.7-.4 2.7 0 4.9 2 4.9 4.8v2.1c1.7-1.4 3.7-2.2 5.8-2.2v2.3c-1.7 0-3.2.5-4.5 1.6v2.8c0 3.4-2.6 6-5.9 6.1A5.9 5.9 0 0 1 7.8 17c0-3.4 2.6-6.1 5.9-6.1.3 0 .5 0 .8.1V9.6c-2.3-.3-4.2-2.2-4.2-4.7 0-2.7 2.1-4.8 4.8-4.8h.8zm2.9 5.5v-.2c.4-.2.7-.5 1-.9V9.7l-.9.1v-1.2z"/></svg>
         <span>Scopri su TikTok</span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
@@ -695,9 +693,9 @@
           <p class="shop-name">T-shirt SG · Nera</p>
           <p class="shop-sub">Tutte le taglie · Affrettati</p>
         </div>
-        <a class="buy-btn" href="https://www.instagram.com/_santy.sg?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Acquista: scrivici in DM su Instagram">
+        <a class="buy-btn" href="https://www.instagram.com/_santy.sg?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Acquista: scrivimi su Instagram">
           INFO
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm5.1-3.1a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm1 4h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2zm0 4h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2zm0 4h5a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2z"/></svg>
         </a>
       </div>
     </section>
