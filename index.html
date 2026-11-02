@@ -480,9 +480,9 @@
 
     <section class="video-card" aria-label="Video ufficiale">
       <div class="video-head">Video</div>
-      <video id="promo-video" autoplay muted loop playsinline preload="metadata" poster="FOTO/cover.jpg">
-        <source src="FOTO/santySG-Di-SnapYT.App.webm" type="video/webm" />
-        <source src="FOTO/SANTY_BG.mp4" type="video/mp4" />
+      <video id="promo-video" autoplay muted loop playsinline preload="metadata" poster="cover.jpg">
+        <source src="santySG-Di-SnapYT.App.webm" type="video/webm" />
+        <source src="SANTY_BG.mp4" type="video/mp4" />
       </video>
     </section>
 
@@ -544,14 +544,14 @@
   <script>
     (() => {
       const tracks = [
-        { title: 'SG', src: 'CANZONI/EP%20SG/SG%20(INTRO)%20-%20santySG.mp3' },
-        { title: 'SPOTLIGHT', src: 'CANZONI/EP%20SG/SPOTLIGHT%20-%20santySG.mp3' },
-        { title: 'DI NUOVO', src: 'CANZONI/EP%20SG/DI%20NUOVO%20-%20santySG.mp3' },
-        { title: 'APACHE', src: 'CANZONI/EP%20SG/APACHE%20-%20santySG.mp3' },
-        { title: 'DI PIÚ', src: 'CANZONI/EP%20SG/DI%20PI%C3%9A%20-%20santySG.mp3' },
-        { title: 'A LA VIE A LA MORT', src: 'CANZONI/EP%20SG/%C3%81%20LA%20VIE%20%C3%81%20LA%20MORT%20-%20santySG.mp3' },
-        { title: 'QUI MORIREMO', src: 'CANZONI/EP%20SG/QUI%20MORIREMO%20-%20santySG.mp3' },
-        { title: 'ALLA FINE', src: 'CANZONI/EP%20SG/ALLA%20FINE%20-%20santySG.mp3' }
+        { title: 'SG', src: 'EP%20SG/SG%20(INTRO)%20-%20santySG.mp3' },
+        { title: 'SPOTLIGHT', src: 'EP%20SG/SPOTLIGHT%20-%20santySG.mp3' },
+        { title: 'DI NUOVO', src: 'EP%20SG/DI%20NUOVO%20-%20santySG.mp3' },
+        { title: 'APACHE', src: 'EP%20SG/APACHE%20-%20santySG.mp3' },
+        { title: 'DI PIÚ', src: 'EP%20SG/DI%20PI%C3%9A%20-%20santySG.mp3' },
+        { title: 'A LA VIE A LA MORT', src: 'EP%20SG/%C3%81%20LA%20VIE%20%C3%81%20LA%20MORT%20-%20santySG.mp3' },
+        { title: 'QUI MORIREMO', src: 'EP%20SG/QUI%20MORIREMO%20-%20santySG.mp3' },
+        { title: 'ALLA FINE', src: 'EP%20SG/ALLA%20FINE%20-%20santySG.mp3' }
       ];
 
       const audio = document.getElementById('audio');
@@ -606,7 +606,7 @@
         audio.play().then(() => {
           audio.muted = false;
         }).catch(() => {
-          message.textContent = 'Autoplay bloccato dal browser. Clicca il pulsante play per attivare l’audio.';
+          message.textContent = '';
         });
       }
 
